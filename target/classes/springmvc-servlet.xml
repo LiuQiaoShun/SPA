@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       classpath:org/springframework/beans/factory/xml/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/context
+       classpath:org/springframework/context/config/spring-context-4.3.xsd
+       http://www.springframework.org/schema/mvc
+       classpath:org/springframework/web/servlet/config/spring-mvc-4.3.xsd">
+
+    <!--扫描@Controller-->
+    <context:component-scan base-package="online.qsx.controller"/>
+    <!--启动 mvc 注解-->
+    <mvc:annotation-driven/>
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp"/>
+
+    <!--静态资源-->
+    <mvc:resources mapping="/upload/**" location="/upload/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/download/**" location="/download/"/>
+
+    <!--组件id必须multipartResolver-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="maxUploadSize" value="10240000000"/>
+    </bean>
+
+</beans>
